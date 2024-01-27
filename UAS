@@ -1,0 +1,128 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+struct Kambing {
+    string nama;
+    double berat;
+    double tinggi;
+    double panjang;
+    string status;
+    };
+
+    vector<Kambing> kambing;
+
+    void tambahKambing(){
+        Kambing kambingBaru;
+        cout <<"Masukkan Nama Kambing : ";
+        cin >> kambingBaru.nama;
+        cout <<"Masukkan Berat Kambing : ";
+        cin >> kambingBaru.berat;
+        cout <<"Masukkan Tinggi Kambing : ";
+        cin >> kambingBaru.tinggi;
+        cout <<"Masukkan Panjang Kambing : ";
+        cin >> kambingBaru.panjang;
+        kambing.push_back(kambingBaru);
+        cout <<"Kambing Berhasil diTambahkan!\n";
+        }
+
+    void dataKambing(){
+        cout <<"Data semua Kambing\n";
+        for(Kambing& kambing : kambing){
+            cout <<"Nama Kambing : " << kambing.nama <<"\n" 
+            <<"Berat : " << kambing.berat << "Kg\n" 
+            <<"TInggi : " << kambing.tinggi << "cm\n" 
+            << "Panjang : " << kambing.panjang << "cm\n" 
+            << "Status : " << kambing.status << "\n";
+            }
+            cout << endl;
+        }
+
+
+    void updateKambing(){
+        string namaKambing;
+        cout <<"Masukkan Nama Kambing yang ingin di Update bulan ini : ";
+        cin >> namaKambing;
+        for(Kambing& kambing : kambing){
+            if(kambing.nama == namaKambing){
+                    cout <<"Update berat : ";
+                    cin >> kambing.berat;
+                    cout <<"Update Tinggi : ";
+                    cin >> kambing.tinggi;
+                    cout <<"Update Panjang : ";
+                    cin >> kambing.panjang;
+                    return;
+            }
+        }
+        cout <<"Data Kambing tidak ditemukan!\n";
+    }
+
+    void updateStatusKambing(){
+        string targetKambing;
+        string statusKambing;
+        cout <<"Masukkan Nama Kambing yang ingin di ubah statusnya (Terjual/Mati) : ";
+        cin >> targetKambing;
+        bool kambingAda = false;
+        for(Kambing& kambing : kambing){
+            if(kambing.nama == targetKambing){
+                    kambingAda = true;
+                    break;
+            }
+        }
+        if (!kambingAda){
+            cout <<"Data Kambing tidak diTemukan!\n";
+            return;
+        }
+        cout <<"Status Kambing anda : ";
+        cin >> statusKambing;
+        for(Kambing& kambing : kambing){
+            if(kambing.nama == targetKambing){
+                if(statusKambing != "Terjual" && statusKambing != "Mati"){
+                    cout <<"Status Kambing tidak valid!, Hanya boleh Terjual atau Mati.\n";
+                    return;
+                }
+                kambing.status = statusKambing;
+            }
+        }
+        cout <<"Anda telah merubah status Kambing anda menjadi (" << statusKambing <<")\n";
+    }
+
+
+
+    int main(){
+        int pilihan;
+        do{
+            cout <<"===========Kambing Pak Haji Slamet===========\n";
+            cout <<"1. Tambah Kambing\n";
+            cout <<"2. Lihat semua Kambing\n";
+            cout <<"3. Update Data Kambing\n";
+            cout <<"4. Ubah Status Kambing\n";
+            cout <<"5. Keluar.\n";
+            cout <<"=============================================\n";
+            cout <<"Pilih : ";
+            cin >> pilihan;
+
+            switch(pilihan){
+                case 1:
+                    tambahKambing();
+                    break;
+                case 2:
+                    dataKambing();
+                    break;
+                case 3:
+                    updateKambing();
+                    break;
+                case 4:
+                    updateStatusKambing();
+                    break;
+                case 5:
+                    cout <<"Terima Kasih! :)";
+                    break;
+                default:
+                    cout <<"Pilihan Tidak Valid!";
+            }
+        }while (pilihan != 5);
+
+        return 0;
+        }
